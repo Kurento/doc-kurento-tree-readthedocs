@@ -5,11 +5,13 @@
 # IMPORTANT: Notice that DOC_VERSION should be the same as variable "release" in conf.py,
 # so when this variable is updated, it should be also updated in conf.py
 
-DOC_VERSION = 6.1.1-dev
-KMS_VERSION = 6.1.0
-CLIENT_JAVA_VERSION = 6.1.0
-CLIENT_JS_VERSION = 6.1.0
-UTILS_JS_VERSION = 6.1.0
+#-- Kurento variables ------------------------
+
+DOC_VERSION = 6.2.1-dev
+MAVEN_VERSION = 6.2.1-SNAPSHOT
+PROJECT = tree
+
+#--------------------------------------------
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
@@ -34,7 +36,7 @@ help:
 	@echo "  html       to make standalone HTML files"
 	@echo "  dist       to make langdoc html epub latexpdf and then copy"
 	@echo "             Kurento.{pdf,epub} in $(BUILDDIR)/html and make a tgz"
-	@echo "             as docs-kurento-room-$(DOC_VERSION).tgz"
+	@echo "             as docs-kurento-$(PROJECT)-$(DOC_VERSION).tgz"
 	@echo "  dirhtml    to make HTML files named index.html in directories"
 	@echo "  singlehtml to make a single large HTML file"
 	@echo "  pickle     to make pickle files"
@@ -60,11 +62,9 @@ clean:
 	-rm -rf source/langdocs
 
 html:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html	
 	find $(BUILDDIR)/html -name "*.html" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
-	find $(BUILDDIR)/html -name "*.html" -exec sed -i -e "s@|CLIENT_JAVA_VERSION|@$(CLIENT_JAVA_VERSION)@" {} \;
-	find $(BUILDDIR)/html -name "*.html" -exec sed -i -e "s@|CLIENT_JS_VERSION|@$(CLIENT_JS_VERSION)@" {} \;
-	find $(BUILDDIR)/html -name "*.html" -exec sed -i -e "s@|UTILS_JS_VERSION|@$(UTILS_JS_VERSION)@" {} \;
+	find $(BUILDDIR)/html -name "*.html" -exec sed -i -e "s@|MAVEN_VERSION|@$(MAVEN_VERSION)@" {} \;
 	./fixlinks.sh
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
@@ -95,36 +95,6 @@ htmlhelp:
 	@echo "Build finished; now you can run HTML Help Workshop with the" \
 	      ".hhp project file in $(BUILDDIR)/htmlhelp."
 
-langdoc:
-	  @echo "Doclint arg for javadoc (if java version >= 1.8): $(DOCLINT)"
-	  
-	  mkdir -p $(BUILDDIR)/langdoc
-	  rm -rf $(BUILDDIR)/langdoc/kurento-room && rm -rf $(BUILDDIR)/langdoc/kurento-java
-	  mkdir -p $(BUILDDIR)/html/langdoc/javadoc
-	  
-	  
-	  # kurento-room-sdk javadoc
-	  rm -rf $(BUILDDIR)/langdoc/kurento-room-sdk
-	  cd  $(BUILDDIR)/langdoc && git clone https://github.com/Kurento/kurento-room.git && cd kurento-room && git checkout kurento-room-$(CLIENT_JAVA_VERSION) || git checkout $(CLIENT_JAVA_VERSION) || echo "Using master branch"
-	  mv $(BUILDDIR)/langdoc/kurento-room/kurento-room-sdk $(BUILDDIR)/langdoc/kurento-room-sdk
-	  rsync -av --exclude 'target' $(BUILDDIR)/langdoc/kurento-room-sdk/* $(BUILDDIR)/langdoc/kurento-room-sdk
-	  cd $(BUILDDIR)/langdoc/kurento-room-sdk && mvn clean package -DskipTests
-	  
-	  # kurento-client javadoc
-	  rm -rf $(BUILDDIR)/langdoc/kurento-client
-	  cd  $(BUILDDIR)/langdoc && git clone https://github.com/Kurento/kurento-java.git && \
-	  cd kurento-java && git checkout kurento-java-$(CLIENT_JAVA_VERSION) || \
-	  git checkout $(CLIENT_JAVA_VERSION) || echo "Using master branch"
-	  mv $(BUILDDIR)/langdoc/kurento-java/kurento-client $(BUILDDIR)/langdoc
-	  cd $(BUILDDIR)/langdoc/kurento-client && mvn clean package -DskipTests
-	  rsync -av $(BUILDDIR)/langdoc/kurento-client/target/generated-sources/kmd/* $(BUILDDIR)/langdoc/kurento-client/src/main/java/
-	   
-	  javadoc $(DOCLINT) -windowtitle "Kurento Room SDK Javadoc" \
-	    -d $(BUILDDIR)/html/langdoc/javadoc \
-	    -sourcepath $(BUILDDIR)/langdoc/kurento-room-sdk/src/main/java/:$(BUILDDIR)/langdoc/kurento-client/src/main/java/ \
-	    -subpackages org.kurento.room:org.kurento.client \
-	    -exclude org.kurento.room.endpoint:org.kurento.room.internal:org.kurento.client.internal
-
 qthelp:
 	$(SPHINXBUILD) -b qthelp $(ALLSPHINXOPTS) $(BUILDDIR)/qthelp
 	@echo
@@ -146,9 +116,7 @@ devhelp:
 epub:
 	$(SPHINXBUILD) -b epub $(ALLSPHINXOPTS) $(BUILDDIR)/epub
 	find $(BUILDDIR)/epub -name "*.html" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
-	find $(BUILDDIR)/epub -name "*.html" -exec sed -i -e "s@|CLIENT_JAVA_VERSION|@$(CLIENT_JAVA_VERSION)@" {} \;
-	find $(BUILDDIR)/epub -name "*.html" -exec sed -i -e "s@|CLIENT_JS_VERSION|@$(CLIENT_JS_VERSION)@" {} \;
-	find $(BUILDDIR)/epub -name "*.html" -exec sed -i -e "s@|UTILS_JS_VERSION|@$(UTILS_JS_VERSION)@" {} \;
+	find $(BUILDDIR)/epub -name "*.html" -exec sed -i -e "s@|MAVEN_VERSION|@$(MAVEN_VERSION)@" {} \;
 	$(SPHINXBUILD) -b epub $(ALLSPHINXOPTS) $(BUILDDIR)/epub
 	@echo
 	@echo "Build finished. The epub file is in $(BUILDDIR)/epub."
@@ -164,9 +132,7 @@ latexpdf:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo "Running LaTeX files through pdflatex..."
 	find $(BUILDDIR)/latex -name "*.tex" -exec sed -i -e "s@.textbar..DOC_VERSION.textbar..@$(DOC_VERSION)@" {} \;
-	find $(BUILDDIR)/latex -name "*.tex" -exec sed -i -e "s@.textbar..CLIENT_JAVA_VERSION.textbar..@$(CLIENT_JAVA_VERSION)@" {} \;
-	find $(BUILDDIR)/latex -name "*.tex" -exec sed -i -e "s@.textbar..CLIENT_JS_VERSION.textbar..@$(CLIENT_JS_VERSION)@" {} \;
-	find $(BUILDDIR)/latex -name "*.tex" -exec sed -i -e "s@.textbar..UTILS_JS_VERSION.textbar..@$(UTILS_JS_VERSION)@" {} \;
+	find $(BUILDDIR)/latex -name "*.tex" -exec sed -i -e "s@.textbar..MAVEN_VERSION.textbar..@$(MAVEN_VERSION)@" {} \;
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
 
@@ -219,15 +185,32 @@ dist: clean langdoc html epub latexpdf
 	@echo
 	@echo "Packaging documentation"
 	@echo
-	cp $(BUILDDIR)/epub/KurentoRoom.epub $(BUILDDIR)/latex/KurentoRoom.pdf $(BUILDDIR)/html &&\
-	tar zcvf $(BUILDDIR)/dist/docs-kurento-room-$(DOC_VERSION).tgz -C $(BUILDDIR)/html .
-	
+	cp $(BUILDDIR)/epub/Kurento-$(PROJECT).epub $(BUILDDIR)/latex/Kurento-$(PROJECT).pdf $(BUILDDIR)/html &&\
+	tar zcvf $(BUILDDIR)/dist/docs-kurento-$(PROJECT)-$(DOC_VERSION).tgz -C $(BUILDDIR)/html .
+
+langdoc:
+	  @echo "Doclint arg for javadoc (if java version >= 1.8): $(DOCLINT)"
+	  
+	  mkdir -p $(BUILDDIR)/langdoc
+	  rm -rf $(BUILDDIR)/langdoc/kurento-tree && rm -rf $(BUILDDIR)/langdoc/kurento-java
+	  mkdir -p $(BUILDDIR)/html/langdoc/javadoc	  
+	  
+	  # kurento-tree-client javadoc
+	  rm -rf $(BUILDDIR)/langdoc/kurento-tree-client
+	  cd  $(BUILDDIR)/langdoc && git clone https://github.com/Kurento/kurento-$(PROJECT).git && cd kurento-tree && git checkout $(MAVEN_VERSION) || echo "Using master branch"
+	  mv $(BUILDDIR)/langdoc/kurento-$(PROJECT)/kurento-$(PROJECT)-client $(BUILDDIR)/langdoc/kurento-tree-client
+	  rsync -av --exclude 'target' $(BUILDDIR)/langdoc/kurento-tree-client/* $(BUILDDIR)/langdoc/kurento-tree-client
+	  cd $(BUILDDIR)/langdoc/kurento-tree-client && mvn clean package -DskipTests
+	  
+	  javadoc $(DOCLINT) -windowtitle "Kurento Tree Client Javadoc" \
+	    -d $(BUILDDIR)/html/langdoc/javadoc \
+	    -sourcepath $(BUILDDIR)/langdoc/kurento-tree-client/src/main/java/ \
+	    -subpackages org.kurento.tree:org.kurento.client \
+	    -exclude org.kurento.tree.internal
+
 readthedocs: clean langdoc
 	find ./source -name "*.html" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
 	find ./source -name "*.rst" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
-	find ./source -name "*.rst" -exec sed -i -e "s@|KMS_VERSION|@$(KMS_VERSION)@" {} \;
-	find ./source -name "*.rst" -exec sed -i -e "s@|CLIENT_JAVA_VERSION|@$(CLIENT_JAVA_VERSION)@" {} \;
-	find ./source -name "*.rst" -exec sed -i -e "s@|CLIENT_JS_VERSION|@$(CLIENT_JS_VERSION)@" {} \;
-	find ./source -name "*.rst" -exec sed -i -e "s@|UTILS_JS_VERSION|@$(UTILS_JS_VERSION)@" {} \;
+	find ./source -name "*.rst" -exec sed -i -e "s@|MAVEN_VERSION|@$(MAVEN_VERSION)@" {} \;	
 	find ./source -name "*.rst" -exec sed -i "s/langdoc/_static\/langdoc/g" {} \;
 	cp -r $(BUILDDIR)/html/langdoc ./source/themes/sphinx_rtd_theme/static

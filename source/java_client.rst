@@ -13,15 +13,14 @@ with Kurento Tree Server using this client.
 Using this client
 =================
 
-This client can be obtained as a maven dependency with the following
-coordinates:
+This client can be obtained as a maven dependency with the following coordinates:
 
 .. code-block:: html
 
    <dependency>
       <groupId>org.kurento</groupId>
       <artifactId>kurento-tree-client</artifactId>
-      <version>6.2.1-SNAPSHOT</version>
+      <version>|MAVEN_VERSION|</version>
    </dependency>
 
 With this dependency, the developer can use the class
@@ -123,3 +122,10 @@ following code:
 
    tree.addIceCandidate(treeName, viewerId, 
        new IceCandidate(candidate, sdpMid, sdpMLineIndex));
+
+Reference documentation
+=======================
+
+
+You can take a look to the `JavaDoc <#kurento-tree-client-javadoc>`_ of this
+client.

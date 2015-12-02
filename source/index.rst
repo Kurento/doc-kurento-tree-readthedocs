@@ -12,6 +12,5 @@ Table of Contents
    java_client.rst
    demo.rst
    websocket_protocol.rst
-   javadoc.rst
 
 * :ref:`genindex`

@@ -36,8 +36,8 @@ Finally, you need Bower, npm and nodejs::
    sudo apt-get install -y nodejs
    sudo npm install -g bower
      
-When all dependencies are installed, you have to download and build two git repositories,
-kurento-java and kurento-tree:: 
+When all dependencies are installed, you have to download and build two git
+repositories, kurento-java and kurento-tree:: 
 
     git clone https://github.com/Kurento/kurento-java.git
     cd kurento-java
@@ -48,13 +48,14 @@ kurento-java and kurento-tree::
     mvn install -DskipTests=true
     cd ..
     
-To execute Kurento Tree server from the recent build, execute the following commands::
+To execute Kurento Tree server from the recent build, execute the following
+commands::
     
     cd kurento-tree/kurento-tree-server
     mvn exec:java
     
-Then a bunch of log messages will appear in the console. When the following message appears
-in the console::
+Then a bunch of log messages will appear in the console. When the following
+message appears in the console::
 
     Started KurentoTreeServerApp in 4.058 seconds (JVM running for 8.017)
 
