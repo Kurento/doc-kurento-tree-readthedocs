@@ -23,7 +23,7 @@ The documentation will be generated in html executing:
 $ make html
 ```
 
-The resulting HTML files will be located in the folder `build` (`index.html` 
+The resulting HTML files will be located in the folder `build/html/` (`index.html` 
 should be opened with a web browser).
 
 What is Kurento
