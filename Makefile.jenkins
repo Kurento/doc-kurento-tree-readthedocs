@@ -200,7 +200,7 @@ langdoc:
 	  cd  $(BUILDDIR)/langdoc && git clone https://github.com/Kurento/kurento-$(PROJECT).git && cd kurento-tree && git checkout $(MAVEN_VERSION) || echo "Using master branch"
 	  mv $(BUILDDIR)/langdoc/kurento-$(PROJECT)/kurento-$(PROJECT)-client $(BUILDDIR)/langdoc/kurento-tree-client
 	  rsync -av --exclude 'target' $(BUILDDIR)/langdoc/kurento-tree-client/* $(BUILDDIR)/langdoc/kurento-tree-client
-	  cd $(BUILDDIR)/langdoc/kurento-tree-client && mvn --settings /tmp/config9140843499715814851tmp clean package -DskipTests
+	  cd $(BUILDDIR)/langdoc/kurento-tree-client && mvn --settings /tmp/config2827575226450766596tmp clean package -DskipTests
 	  
 	  javadoc $(DOCLINT) -windowtitle "Kurento Tree Client Javadoc" \
 	    -d $(BUILDDIR)/html/langdoc/javadoc \
