@@ -20,7 +20,7 @@ This client can be obtained as a maven dependency with the following coordinates
    <dependency>
       <groupId>org.kurento</groupId>
       <artifactId>kurento-tree-client</artifactId>
-      <version>|MAVEN_VERSION|</version>
+      <version>6.2.1-SNAPSHOT</version>
    </dependency>
 
 With this dependency, the developer can use the class
@@ -76,7 +76,7 @@ In same way as before, ``sdpOffer`` and ``sdpAnswer`` have to be interchanged
 with JavaScript code in the browser to perform the media negotiation.
 
 Kurento Tree support media negotiation with
-`Trickle ICE https://webrtchacks.com/trickle-ice/`_ . In this sense, besides
+`Trickle ICE <https://webrtchacks.com/trickle-ice/>`_ . In this sense, besides
 SDP offer and answer interchange between browser and media server, it is
 necessary to interchange Ice candidates between peers.
 

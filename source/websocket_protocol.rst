@@ -39,8 +39,7 @@ Request to create a new tree in Tree server. It is send by clients to server.
 - **Server response (result)**:
 
    - **value** - new tree id
-   - **sessionId** - id of the WebSocket session between the client and the
-   server
+   - **sessionId** - id of the WebSocket session between the client and the server
 
 - **Example response**::
 

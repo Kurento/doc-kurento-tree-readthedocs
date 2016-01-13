@@ -1,5 +1,2 @@
-org.kurento.client
-org.kurento.room
-org.kurento.room.api
-org.kurento.room.api.pojo
-org.kurento.room.exception
+org.kurento.tree.client
+org.kurento.tree.client.internal
