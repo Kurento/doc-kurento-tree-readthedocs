@@ -36,22 +36,36 @@ Finally, you need Bower, npm and nodejs::
    sudo apt-get install -y nodejs
    sudo npm install -g bower
      
-When all dependencies are installed, you have to download and build two git
-repositories, kurento-java and kurento-tree:: 
+When all dependencies are installed, you can get the code from the official
+github repository and move into the code folder:: 
 
-    git clone https://github.com/Kurento/kurento-java.git
-    cd kurento-java
-    mvn install -DskipTests=true
-    cd ..
     git clone https://github.com/Kurento/kurento-tree.git
     cd kurento-tree
+
+This will downloadd the latest code into your machine. That code is normarlly for
+development, and depends on SNAPSHOT versions of artifacts that are not deployed
+in Maven Central. YOu can either continue working with the nightly build (with caution,
+as the development version might be unstable), or get the latest release of the project.
+The steps that you have to follow for each one are different.
+
+* Working with nightly builds: Please read the `official project's documentation <https://doc-kurento.readthedocs.org/en/stable/mastering/kurento_development.html>`__ on how
+  to work with development versions, specially `this <https://doc-kurento.readthedocs.org/en/stable/mastering/kurento_development.html#kurento-java-client>`__ part about how to use our internal Archiva repo.
+
+* Using a release version: This is the recommended approach, as release versions are more
+  stable. You'll need to download the last release tag::
+
+    git checkout -b 6.2.1-SNAPSHOT |MAVEN_VERSION|
+
+Once you got the desired version, you just need to execute::
+
     mvn install -DskipTests=true
-    cd ..
+
+And that will install all generated artifacts in your local Maven repository.
     
 To execute Kurento Tree server from the recent build, execute the following
 commands::
     
-    cd kurento-tree/kurento-tree-server
+    cd kurento-tree-server
     mvn exec:java
     
 Then a bunch of log messages will appear in the console. When the following
@@ -59,4 +73,4 @@ message appears in the console::
 
     Started KurentoTreeServerApp in 4.058 seconds (JVM running for 8.017)
 
-You can use Kurento Tree Server in the port 8890.
+You can use Kurento Tree Server in port 8890.
