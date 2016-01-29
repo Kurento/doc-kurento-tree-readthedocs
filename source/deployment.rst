@@ -42,19 +42,19 @@ github repository and move into the code folder::
     git clone https://github.com/Kurento/kurento-tree.git
     cd kurento-tree
 
-This will downloadd the latest code into your machine. That code is normarlly for
+This will downloadd the latest code into your machine. *That code is normally for
 development, and depends on SNAPSHOT versions of artifacts that are not deployed
-in Maven Central. YOu can either continue working with the nightly build (with caution,
+in Maven Central*. You can either continue working with the nightly build (with caution,
 as the development version might be unstable), or get the latest release of the project.
 The steps that you have to follow for each one are different.
 
-* Working with nightly builds: Please read the `official project's documentation <https://doc-kurento.readthedocs.org/en/stable/mastering/kurento_development.html>`__ on how
+* Working with development versions: Please read the `official project's documentation <https://doc-kurento.readthedocs.org/en/stable/mastering/kurento_development.html>`__ on how
   to work with development versions, specially `this <https://doc-kurento.readthedocs.org/en/stable/mastering/kurento_development.html#kurento-java-client>`__ part about how to use our internal Archiva repo.
 
 * Using a release version: This is the recommended approach, as release versions are more
   stable. You'll need to download the last release tag::
 
-    git checkout -b 6.2.1-SNAPSHOT |MAVEN_VERSION|
+    git checkout -b release 6.3.0
 
 Once you got the desired version, you just need to execute::
 

@@ -7,8 +7,8 @@
 
 #-- Kurento variables ------------------------
 
-DOC_VERSION = 6.2.1-dev
-MAVEN_VERSION = 6.2.1-SNAPSHOT
+DOC_VERSION = 6.3.0
+MAVEN_VERSION = 6.3.0
 PROJECT = tree
 
 #--------------------------------------------
@@ -62,7 +62,7 @@ clean:
 	-rm -rf source/langdocs
 
 html:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html	
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	find $(BUILDDIR)/html -name "*.html" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
 	find $(BUILDDIR)/html -name "*.html" -exec sed -i -e "s@|MAVEN_VERSION|@$(MAVEN_VERSION)@" {} \;
 	./fixlinks.sh
@@ -190,18 +190,18 @@ dist: clean langdoc html epub latexpdf
 
 langdoc:
 	  @echo "Doclint arg for javadoc (if java version >= 1.8): $(DOCLINT)"
-	  
+
 	  mkdir -p $(BUILDDIR)/langdoc
 	  rm -rf $(BUILDDIR)/langdoc/kurento-tree && rm -rf $(BUILDDIR)/langdoc/kurento-java
-	  mkdir -p $(BUILDDIR)/html/langdoc/javadoc	  
-	  
+	  mkdir -p $(BUILDDIR)/html/langdoc/javadoc
+
 	  # kurento-tree-client javadoc
 	  rm -rf $(BUILDDIR)/langdoc/kurento-tree-client
 	  cd  $(BUILDDIR)/langdoc && git clone https://github.com/Kurento/kurento-$(PROJECT).git && cd kurento-tree && git checkout $(MAVEN_VERSION) || echo "Using master branch"
 	  mv $(BUILDDIR)/langdoc/kurento-$(PROJECT)/kurento-$(PROJECT)-client $(BUILDDIR)/langdoc/kurento-tree-client
 	  rsync -av --exclude 'target' $(BUILDDIR)/langdoc/kurento-tree-client/* $(BUILDDIR)/langdoc/kurento-tree-client
 	  cd $(BUILDDIR)/langdoc/kurento-tree-client && mvn --batch-mode --settings /opt/kurento-settings.xml clean package -DskipTests
-	  
+
 	  javadoc $(DOCLINT) -windowtitle "Kurento Tree Client Javadoc" \
 	    -d $(BUILDDIR)/html/langdoc/javadoc \
 	    -sourcepath $(BUILDDIR)/langdoc/kurento-tree-client/src/main/java/ \
@@ -211,6 +211,6 @@ langdoc:
 readthedocs: clean langdoc
 	find ./source -name "*.html" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
 	find ./source -name "*.rst" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
-	find ./source -name "*.rst" -exec sed -i -e "s@|MAVEN_VERSION|@$(MAVEN_VERSION)@" {} \;	
+	find ./source -name "*.rst" -exec sed -i -e "s@|MAVEN_VERSION|@$(MAVEN_VERSION)@" {} \;
 	find ./source -name "*.rst" -exec sed -i "s/langdoc/_static\/langdoc/g" {} \;
 	cp -r $(BUILDDIR)/html/langdoc ./source/themes/sphinx_rtd_theme/static

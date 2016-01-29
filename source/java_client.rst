@@ -20,7 +20,7 @@ This client can be obtained as a maven dependency with the following coordinates
    <dependency>
       <groupId>org.kurento</groupId>
       <artifactId>kurento-tree-client</artifactId>
-      <version>6.2.1-SNAPSHOT</version>
+      <version>6.3.0</version>
    </dependency>
 
 With this dependency, the developer can use the class
