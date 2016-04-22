@@ -55,6 +55,9 @@ connects to KMS with another URI, you have to exec it using the following
 command::
 
     mvn exec:java -Dkms.url=ws://<kms_host>:8888/kurento
+    
+These commands start kurento-tree-server in ``8890`` port. You can change
+listening port using the parameter ``-Dserver.port=<port>``.
 
 The following step is start the Kurento Tree Demo app that uses Kurento Tree
 Server. You have to open another terminal and locate in the root of the source
@@ -72,6 +75,9 @@ command::
 
     mvn exec:java -Dkts.ws.uri=wss://<kts_host>:8890/kurento-tree
     
+Kurento Tree Demo app is started by default in port ``8443``. If you want to
+change the port you can use the parameter ``-Dserver.port=<port>``.
+
 To use the demo application you have to open a browser pointing to
 ``https://localhost:8443``. The main use case of Kurento Tree Demo is broadcast
 a webcam to other users. To test this scenario, open two browsers, first
