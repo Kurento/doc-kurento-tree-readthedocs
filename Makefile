@@ -7,8 +7,8 @@
 
 #-- Kurento variables ------------------------
 
-DOC_VERSION = 6.5.1-dev
-MAVEN_VERSION = 6.5.1-SNAPSHOT
+DOC_VERSION = 6.6.0
+MAVEN_VERSION = 6.6.0
 PROJECT = tree
 
 #--------------------------------------------
