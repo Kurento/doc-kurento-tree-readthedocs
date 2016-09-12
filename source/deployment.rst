@@ -54,7 +54,7 @@ The steps that you have to follow for each one are different.
 * Using a release version: This is the recommended approach, as release versions are more
   stable. You'll need to download the last release tag::
 
-    git checkout -b release 6.6.0
+    git checkout -b release 6.6.1-SNAPSHOT
 
 Once you got the desired version, you just need to execute::
 
