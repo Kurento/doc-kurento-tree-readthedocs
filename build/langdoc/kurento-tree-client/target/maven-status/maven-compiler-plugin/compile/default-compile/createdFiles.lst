@@ -1,7 +1,0 @@
-org/kurento/tree/client/ServerJsonRpcHandler.class
-org/kurento/tree/client/KurentoTreeClient.class
-org/kurento/tree/client/internal/JsonTreeUtils.class
-org/kurento/tree/client/IceCandidateInfo.class
-org/kurento/tree/client/internal/ProtocolElements.class
-org/kurento/tree/client/TreeException.class
-org/kurento/tree/client/TreeEndpoint.class

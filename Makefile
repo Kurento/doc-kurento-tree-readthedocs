@@ -208,6 +208,8 @@ langdoc:
 	    -subpackages org.kurento.tree:org.kurento.client \
 	    -exclude org.kurento.tree.internal
 
+	  rm -rf $(BUILDDIR)/langdoc
+
 readthedocs: clean langdoc
 	find ./source -name "*.html" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
 	find ./source -name "*.rst" -exec sed -i -e "s@|DOC_VERSION|@$(DOC_VERSION)@" {} \;
